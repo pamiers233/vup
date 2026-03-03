@@ -1,0 +1,121 @@
+html, body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+}
+
+:root {
+    --jstor-blue: #003366;
+}
+
+.vup-archive-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.vup-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 60px; /* 档案之间的间距 */
+}
+
+.vup-card {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 30px;
+    padding-bottom: 40px;
+    border-bottom: 1px double var(--border-color);
+    align-items: start;
+}
+
+/* 头像框：学术肖像风格 */
+.vup-avatar-frame {
+    width: 150px;
+    height: 180px;
+    border: 1px solid #999;
+    padding: 5px;
+    background: #fff;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+.vup-avatar-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.2) contrast(1.1); /* 稍微做旧感 */
+}
+
+.vup-status {
+    text-align: center;
+    font-family: serif;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    color: var(--accent-color);
+    border-top: 1px solid var(--accent-color);
+    display: inline-block;
+    width: 150px;
+}
+
+/* 文字部分 */
+.vup-meta {
+    font-family: "Cinzel", serif;
+    font-size: 0.75rem;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.vup-name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+    display: inline-block;
+}
+
+.vup-abstract {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: justify;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.vup-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.vup-actions a {
+    color: var(--jstor-blue);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 1px solid var(--jstor-blue);
+    padding: 5px 12px;
+    transition: all 0.3s;
+}
+
+.vup-actions a:hover {
+    background: var(--jstor-blue);
+    color: #fff;
+}
+
+/* 手机端适配 */
+@media (max-width: 600px) {
+    .vup-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .vup-sidebar {
+        margin: 0 auto;
+    }
+    .vup-actions {
+        justify-content: center;
+    }
+    .vup-name {
+        font-size: 1.5rem;
+    }
+}

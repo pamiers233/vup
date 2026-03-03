@@ -1,0 +1,164 @@
+:root {
+    --bg-color: #fbfaf8;
+    --text-color: #2c2c2c;
+    --accent-color: #8b0000;
+    --border-color: #d1cdc7;
+    --font-serif: "Noto Serif SC", serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-serif);
+    line-height: 1.8;
+    overflow-x: hidden;
+    overflow-y: hidden; /* 初始禁止滚动 */
+}
+
+/* =========================================
+   1. 开场动画 (Apple 风格)
+   ========================================= */
+#intro-screen {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: var(--bg-color);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999; transition: opacity 1.5s ease;
+}
+
+.intro-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+.hat-container { width: 180px; height: 180px; margin-bottom: 20px; }
+
+.hat-path {
+    fill: transparent; stroke-dasharray: 100; stroke-dashoffset: 100;
+    animation: draw 3s ease forwards, fillHat 1.5s ease 2.5s forwards;
+}
+
+@keyframes draw { 100% { stroke-dashoffset: 0; } }
+@keyframes fillHat { 100% { fill: var(--target-fill); stroke: transparent; } }
+
+.text-svg-container { width: 90vw; max-width: 600px; }
+
+.draw-text {
+    font-size: 65px; font-weight: 700; fill: transparent;
+    stroke: var(--text-color); stroke-width: 1.2px;
+    stroke-dasharray: 1200; stroke-dashoffset: 1200;
+    animation: draw 3s ease 1s forwards, fillText 1s ease 3.5s forwards;
+}
+
+@keyframes fillText { 100% { fill: var(--text-color); stroke: transparent; } }
+
+.intro-text { font-size: 0.8rem; letter-spacing: 0.3em; color: #999; opacity: 0; animation: fadeIn 1s ease 4s forwards; }
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* =========================================
+   2. 主页面 (JSTOR 学术风格)
+   ========================================= */
+#main-content {
+    max-width: 1000px; margin: 0 auto; padding: 80px 40px;
+    opacity: 0; transition: opacity 1.5s ease;
+}
+
+.journal-header { border-bottom: 3px solid var(--text-color); padding-bottom: 30px; margin-bottom: 60px; }
+.header-top { display: flex; justify-content: space-between; font-size: 0.85rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 30px; text-transform: uppercase; }
+.site-title { font-size: 3.8rem; font-weight: 700; text-align: center; margin-bottom: 30px; letter-spacing: -1px; }
+
+.journal-nav { display: flex; justify-content: center; gap: 40px; border-top: 1px solid var(--border-color); padding-top: 20px; }
+.journal-nav a { color: var(--text-color); text-decoration: none; font-weight: 700; transition: 0.3s; }
+.journal-nav a:hover { color: var(--accent-color); }
+
+.abstract { background-color: #fff; padding: 40px; border: 1px solid var(--border-color); margin-bottom: 80px; }
+.section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 25px; }
+.section-title.border-top { border-top: 2px solid var(--text-color); padding-top: 20px; }
+
+/* =========================================
+   3. 科目大按钮 (一笔画图标)
+   ========================================= */
+.exam-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;
+}
+
+.exam-card {
+    background: #fff; border: 1px solid var(--border-color);
+    padding: 30px 10px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-svg {
+    width: 45px; height: 45px; fill: none;
+    stroke: #ccc; stroke-width: 2.5px; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 400; stroke-dashoffset: 400;
+    transition: stroke 0.4s, stroke-dashoffset 1s ease;
+}
+
+.exam-card span { margin-top: 15px; font-weight: 700; font-size: 1.1rem; color: var(--text-color); }
+
+/* 交互：悬停画线 */
+.exam-card:hover { border-color: var(--accent-color); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+.exam-card:hover .icon-svg { stroke: var(--accent-color); stroke-dashoffset: 0; }
+
+/* 渐显动画类 */
+.fade-up { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* =========================================
+   4. 响应式适配 (手机端)
+   ========================================= */
+@media (max-width: 768px) {
+    #main-content { padding: 40px 20px; }
+    
+    .site-title { font-size: 2.2rem; }
+    .header-top { flex-direction: column; align-items: center; gap: 5px; }
+    .journal-nav { gap: 20px; font-size: 0.9rem; }
+
+    .exam-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .exam-card { padding: 25px 10px; }
+
+    /* 手机端图标默认直接画好，颜色变深，方便识别 */
+    .icon-svg { stroke-dashoffset: 0; stroke: #555; stroke-width: 2.2px; }
+    .exam-card:active { background: #f0f0f0; }
+}
+
+@media (max-width: 380px) {
+    .site-title { font-size: 1.8rem; }
+}
+
+/* 贪吃蛇本体 */
+#ink-snake {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: var(--text-color);
+    border-radius: 50%; /* 看起来像一团墨水 */
+    z-index: 10000;
+    pointer-events: none; /* 不干扰点击 */
+    display: none;
+    box-shadow: 0 0 15px var(--text-color);
+    transition: transform 0.1s linear;
+}
+
+/* 被“吃掉”时的消失动画 */
+.eaten {
+    opacity: 0 !important;
+    transform: scale(0.5) rotate(5deg) !important;
+    transition: all 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) !important;
+    pointer-events: none;
+}
+
+/* 最后的空白页提示 */
+#archive-cleared {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: #ccc;
+    opacity: 0;
+    transition: opacity 2s;
+    pointer-events: none;
+    text-align: center;
+}

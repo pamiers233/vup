@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>受邀研究员档案 | 强推VUP名单</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css"> <!-- 复用主样式 -->
+    <link rel="stylesheet" href="../css/vup.css">   <!-- 专属样式 -->
+</head>
+<body>
+
+    <div id="main-content" style="opacity: 1;"> <!-- 默认显示 -->
+        <header class="journal-header">
+            <div class="header-top">
+                <span>INDEX RERUM VIRTUALIUM</span>
+                <span>VOL. 2024 — CONTRIBUTORS</span>
+            </div>
+            <h1 class="site-title">特邀研究员名录</h1>
+            <p style="text-align: center; font-style: italic; color: #666; margin-top: -20px;">
+                "Linguistics, Virtual Reality, and the Future of Human Connection"
+            </p>
+        </header>
+
+        <main class="vup-archive-container">
+            <!-- JS 将动态在这里插入 VUP 卡片 -->
+            <div id="vup-list" class="vup-grid"></div>
+        </main>
+
+        <footer class="journal-footer">
+            <a href="index.html" style="color:var(--accent-color); text-decoration:none; font-weight:700;">← 返回考试院首页</a>
+            <p style="margin-top: 20px;">© 2024 私人虚拟主播考试院. 档案持续更新中.</p>
+        </footer>
+    </div>
+
+    <script src="../js/vup.js"></script>
+</body>
+</html>

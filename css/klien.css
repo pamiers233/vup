@@ -1,0 +1,144 @@
+:root {
+    /* 极致统一的底色：温暖的羊皮纸/信纸白 */
+    --bg-unified: #fdfcf9; 
+    
+    /* 克莱因蓝：核心灵魂色，配合一点暗金 */
+    --klein-blue: #002fa7;
+    --klein-blue-light: rgba(0, 47, 167, 0.15);
+    --gold: #c5a059;
+    
+    /* 文本色 */
+    --text-main: #2c3e50;
+    --text-light: #7f8c8d;
+    
+    /* 字体 */
+    --font-cn: "Noto Serif SC", serif;
+    --font-en: "Cinzel", serif;
+    --font-sign: "Great Vibes", cursive;
+}
+
+html, body {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    background-color: var(--bg-unified); /* 首尾一致的背景色 */
+    color: var(--text-main);
+    font-family: var(--font-cn);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    overflow-y: hidden; /* 动画期间锁死滚动 */
+}
+
+/* =========================================
+   第一幕：华丽线性生长动画
+   ========================================= */
+#linear-intro {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+    flex-direction: column; z-index: 10000;
+    /* 背景完全透明，露出 body 的纸张色 */
+    background: transparent;
+    transition: opacity 2s ease, transform 2s ease;
+    pointer-events: none;
+}
+
+#master-astrolabe {
+    position: absolute; width: 85vmin; height: 85vmin;
+    opacity: 1; transition: opacity 2s, transform 3s ease-out;
+    filter: drop-shadow(0 0 8px var(--klein-blue-light));
+}
+
+/* 线条的基础样式：极细、优雅 */
+.draw-line {
+    fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    /* 让所有线条初始隐藏，依靠 JS 控制 CSS 变量或类名来画线 */
+    stroke-dasharray: 4000; stroke-dashoffset: 4000;
+    transition: stroke-dashoffset 8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.draw-line.drawing { stroke-dashoffset: 0; }
+
+.klein-line { stroke: var(--klein-blue); opacity: 0.8; }
+.gold-line { stroke: var(--gold); stroke-width: 1; opacity: 0.6; }
+
+/* 星盘缓慢自转 */
+.spin-slow { animation: rotateAstrolabe 40s linear infinite; transform-origin: center; }
+@keyframes rotateAstrolabe { 100% { transform: rotate(360deg); } }
+
+/* 罗塞塔碑文线性浮现 */
+#rosetta-linear-text {
+    position: absolute; display: flex; flex-direction: column; align-items: center; gap: 3vh;
+}
+.linear-layer {
+    opacity: 0; transform: translateY(15px); letter-spacing: 0.5em;
+    transition: all 2s ease;
+}
+.linear-layer.show { opacity: 1; transform: translateY(0); }
+.cuneiform { font-size: 2rem; color: #a99a80; }
+.hiero { font-size: 2.5rem; color: #b3a690; }
+.greek { font-family: var(--font-en); font-size: 1.8rem; color: var(--gold); font-style: italic; }
+
+/* 核心解密文字：克莱因蓝 */
+#cipher-focus {
+    position: absolute; font-family: var(--font-cn); font-size: 2.5rem; font-weight: 700;
+    letter-spacing: 0.3em; color: var(--klein-blue);
+    text-shadow: 0 0 15px rgba(0, 47, 167, 0.3);
+    opacity: 0; transition: opacity 1s, transform 1s;
+    z-index: 10;
+}
+
+/* =========================================
+   第二幕：谢鸣信正文
+   ========================================= */
+#tribute-content {
+    display: none; min-height: 100vh;
+    padding: 10vh 20px 15vh 20px;
+    background: radial-gradient(circle at center, #ffffff 0%, var(--bg-unified) 100%);
+}
+
+.letter-container {
+    max-width: 760px; margin: 0 auto;
+    background: transparent;
+}
+
+/* 标题区 */
+.tribute-header { text-align: center; margin-bottom: 60px; }
+.rosetta-crown { font-family: var(--font-en); font-size: 1rem; color: var(--gold); letter-spacing: 4px; margin-bottom: 20px; }
+.vup-name { font-size: 3.5rem; font-weight: 700; color: var(--klein-blue); margin: 0 0 15px 0; letter-spacing: 8px; }
+.subtitle { font-size: 1.1rem; color: var(--text-light); letter-spacing: 2px; }
+
+.decorative-line { width: 60px; height: 1px; background-color: var(--gold); margin: 30px auto; opacity: 0.6; }
+
+/* 正文区 */
+.letter-body { font-size: 1.15rem; line-height: 2.4; color: var(--text-main); text-align: justify; padding: 0 20px; }
+.letter-body p { margin-bottom: 25px; }
+
+.drop-cap {
+    float: left; font-size: 4rem; line-height: 0.8; 
+    padding-top: 8px; padding-right: 12px;
+    font-weight: 700; color: var(--klein-blue); font-family: var(--font-cn);
+}
+
+/* 落款区 */
+.tribute-footer { text-align: center; margin-top: 80px; }
+.sign-off { font-family: var(--font-en); font-size: 1rem; color: var(--text-light); letter-spacing: 2px; margin-bottom: 5px; text-transform: uppercase; }
+.signature { font-family: var(--font-sign); font-size: 2.8rem; color: var(--klein-blue); margin: 10px 0; }
+.date { font-family: var(--font-en); font-size: 0.9rem; color: var(--gold); letter-spacing: 2px; }
+
+/* 优雅的上浮入场动画 */
+.fade-in-up { opacity: 0; transform: translateY(40px); transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+/* 延迟控制 */
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.5s; }
+.delay-3 { transition-delay: 0.8s; }
+.delay-4 { transition-delay: 1.1s; }
+.delay-5 { transition-delay: 1.4s; }
+
+body.is-scrollable { overflow-y: auto; }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .vup-name { font-size: 2.4rem; letter-spacing: 4px; }
+    .letter-body { font-size: 1.05rem; line-height: 2.2; }
+    #master-astrolabe { width: 100vmin; height: 100vmin; }
+    #cipher-focus { font-size: 1.8rem; }
+}

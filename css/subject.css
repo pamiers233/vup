@@ -1,0 +1,93 @@
+:root {
+    --kraft-paper: #cdaa7d; 
+    --jstor-paper: #fbfaf8; 
+    --seal-red: #8b0000;    
+    --text-dark: #2c2c2c;
+    --font-serif: "Noto Serif SC", serif;
+    --accent-color: #8b0000;
+}
+
+/* --- 1. 初始锁定：html 和 body 必须同时锁定 --- */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--jstor-paper);
+    font-family: var(--font-serif);
+    overflow: hidden; /* 撕开前禁止滚动 */
+}
+
+/* --- 2. 撕开后的解锁：同时释放 html 和 body --- */
+html.is-scrollable, 
+body.is-scrollable {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    position: relative !important;
+}
+
+/* --- 3. 牛皮纸容器 --- */
+#envelope-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1000;
+    display: flex;
+    pointer-events: auto; /* 确保火漆能点到 */
+}
+
+/* 动画类 */
+.paper-half {
+    position: absolute; top: 0; width: 51%; height: 100%;
+    background-color: var(--kraft-paper);
+    background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
+    transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.2);
+}
+
+.left-paper { left: 0; clip-path: polygon(0% 0%, 100% 0%, 95% 10%, 100% 20%, 95% 30%, 100% 40%, 95% 50%, 100% 60%, 95% 70%, 100% 80%, 95% 90%, 100% 100%, 0% 100%); }
+.right-paper { right: 0; clip-path: polygon(5% 0%, 100% 0%, 100% 100%, 5% 100%, 0% 90%, 5% 80%, 0% 70%, 5% 60%, 0% 50%, 5% 40%, 0% 30%, 5% 20%, 0% 10%); }
+
+.opened .left-paper { transform: translateX(-105%); }
+.opened .right-paper { transform: translateX(105%); }
+
+#wax-seal {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: 1001; cursor: pointer; text-align: center;
+    transition: opacity 0.5s ease;
+}
+
+.seal-inner {
+    width: 100px; height: 100px; background: var(--seal-red);
+    border-radius: 50%; border: 4px double #5c0000;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.seal-inner span { color: #f1d399; font-weight: 700; font-size: 1.5rem; }
+.opened #wax-seal { opacity: 0; pointer-events: none; }
+
+/* --- 4. 内容容器 --- */
+#exam-content {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    min-height: 100vh;
+    display: block; /* 恢复块级排版 */
+}
+
+.exam-header { border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 40px; text-align: center; }
+.confidential-stamp { border: 3px solid var(--accent-color); color: var(--accent-color); display: inline-block; padding: 5px 15px; font-weight: 700; transform: rotate(-5deg); margin-bottom: 20px; }
+#subject-title { font-size: 2.2rem; font-weight: 700; }
+.info-bar { margin-bottom: 40px; border: 1px solid #ccc; padding: 10px; font-weight: 700; }
+.question-item { margin-bottom: 40px; padding-left: 15px; border-left: 2px solid #eee; }
+.q-text { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+.q-options { list-style: none; padding-left: 10px; }
+.q-options li { margin-bottom: 8px; }
+.back-link { margin-top: 50px; color: var(--accent-color); text-decoration: none; font-weight: 700; display: block; }
+
+@media (max-width: 768px) {
+    #subject-title { font-size: 1.6rem; }
+    #exam-content { padding: 40px 15px; }
+}

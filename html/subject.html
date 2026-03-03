@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 确保手机端不会缩放得太小 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>试卷调阅 | 私人虚拟主播考试院</title>
+    <!-- 引入中文字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- 引用 CSS -->
+    <link rel="stylesheet" href="..\css\subject.css">
+</head>
+<body class="subject-page">
+
+    <!-- 1. 牛皮纸密封层 (撕纸特效) -->
+    <div id="envelope-container">
+        <div class="paper-half left-paper"></div>
+        <div class="paper-half right-paper"></div>
+        
+        <div id="wax-seal">
+            <div class="seal-inner">
+                <span>机密</span>
+            </div>
+            <p class="seal-hint">点击火漆开启档案</p>
+        </div>
+    </div>
+
+    <!-- 2. 内部 JSTOR 风格试卷内容 -->
+    <div id="exam-content">
+        <header class="exam-header">
+            <div class="confidential-stamp">TOP SECRET / 机密</div>
+            <h1 id="subject-title">核心科目考核</h1>
+            <div class="exam-meta">
+                <span>卷号：2024-A01</span>
+                <span>考试时长：120分钟</span>
+            </div>
+        </header>
+
+        <section class="exam-body">
+            <!-- 考生信息栏 -->
+            <div class="info-bar">
+                姓名：________________  准考证号：________________
+            </div>
+            
+            <!-- 题目动态填入容器 (JS会往这里写内容) -->
+            <div id="questions-container">
+                <p style="text-align:center; color:#888;">正在提取题库档案...</p>
+            </div>
+        </section>
+
+        <footer class="exam-footer">
+            <p>私人虚拟主播考试院 (V.T.E.A) 监制</p>
+            <!-- 返回主页的链接 -->
+            <a href="index.html" class="back-link">← 返回文献馆首页</a>
+        </footer>
+    </div>
+
+    <!-- 引用 JS (确保路径正确) -->
+    <script src="..\js\subject.js"></script>
+</body>
+</html>
